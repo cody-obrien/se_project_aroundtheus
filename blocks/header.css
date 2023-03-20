@@ -1,21 +1,23 @@
 .header {
   margin-top: 45px;
-}
-
-@media screen and (max-width: 544px) {
-  .header {
-    margin-top: 28px;
-    padding-left: 27px;
-  }
-  .header__logo {
-    height: 24px;
-    width: 126px;
-  }
+  padding-bottom: 41px;
+  border-bottom: solid rgba(54, 54, 54, 0.6) 1px;
 }
 
 @media screen and (max-width: 878px) {
   .header {
     padding-left: 20px;
     padding-right: 20px;
+  }
+}
+@media screen and (max-width: 544px) {
+  .header {
+    margin-top: 28px;
+    padding-left: 27px;
+    padding-bottom: 32px;
+  }
+  .header__logo {
+    height: 24px;
+    width: 126px;
   }
 }

@@ -1,9 +1,13 @@
 .footer {
   margin-top: 67px;
+  padding-bottom: 60px;
 }
 
 .footer__copyright {
+  margin: 0;
   color: #545454;
+  font-size: 18px;
+  line-height: 22px;
 }
 
 @media screen and (max-width: 878px) {
@@ -11,5 +15,13 @@
     margin-top: 48px;
     padding-left: 20px;
     padding-right: 20px;
+    padding-bottom: 36px;
+  }
+}
+
+@media screen and (max-width: 544px) {
+  .footer__copyright {
+    font-size: 14px;
+    line-height: 17px;
   }
 }
