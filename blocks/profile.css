@@ -100,9 +100,9 @@
     gap: 14px;
   }
   .profile__button-edit {
-    height: 8px;
-    width: 8px;
-    background-size: cover;
+    height: 18px;
+    width: 18px;
+    background-size: 8px 8px;
   }
 
   .profile__button-add {
