@@ -52,6 +52,10 @@
 
   font-size: 18px;
   line-height: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 373px;
 }
 
 .profile__button-add {
@@ -94,6 +98,11 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
+  }
+  .profile__button-edit {
+    height: 8px;
+    width: 8px;
+    background-size: cover;
   }
 
   .profile__button-add {
