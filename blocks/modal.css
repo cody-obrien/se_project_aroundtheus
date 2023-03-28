@@ -1,0 +1,87 @@
+.modal {
+  /* display: none; */
+  background-color: rgba(0, 0, 0, 0.5);
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  padding: 0 19px;
+  display: flex;
+}
+.modal_opened {
+  display: flex;
+}
+
+.modal__container {
+  margin: auto;
+  padding: 36px;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 430px;
+  height: 330px;
+}
+
+.modal__heading {
+  margin: 0 0 54px;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+}
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.modal__form-input {
+  border: none;
+  border-bottom: rgba(0, 0, 0, 0.2) solid 1px;
+}
+.modal__button-save {
+  padding: 0;
+  border-radius: 2px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  height: 50.15px;
+}
+
+.modal__button-close {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+  /* Using bottom and left here as calc with 100% and 5px allows for a height and width independent positioning */
+  bottom: calc(100% + 5px);
+  left: calc(100% + 5px);
+  height: 40px;
+  width: 40px;
+  background-image: url("../images/close.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@media screen and (max-width: 878px) {
+  .modal__button-close {
+    bottom: calc(100% + 13px);
+    left: calc(100% - 26px);
+    height: 26px;
+    width: 26px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .modal__container {
+    width: 282px;
+    height: 322px;
+  }
+}
