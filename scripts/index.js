@@ -32,10 +32,10 @@ let profileTitle = document.querySelector(".profile__title");
 let profileDesc = document.querySelector(".profile__description");
 
 function getTitlesAndDescriptions() {
-  let inputTitle = document.querySelector('[name = "title"]');
-  let inputDesc = document.querySelector('[name = "description"]');
-  let profileTitle = document.querySelector(".profile__title");
-  let profileDesc = document.querySelector(".profile__description");
+  inputTitle = document.querySelector('[name = "title"]');
+  inputDesc = document.querySelector('[name = "description"]');
+  profileTitle = document.querySelector(".profile__title");
+  profileDesc = document.querySelector(".profile__description");
 }
 document
   .querySelector(".profile__button-edit")
@@ -62,3 +62,17 @@ document
     profileTitle.textContent = inputTitle.value;
     modal.classList.remove("modal_opened");
   });
+function getCardElement(data) {
+  let cardTemplateContent = document.querySelector("#card").content;
+  let cardElement = cardTemplateContent.cloneNode(true);
+  cardElement.querySelector(".card__image").setAttribute("src", data.link);
+  cardElement.querySelector(".card__image").setAttribute("alt", data.name);
+  cardElement.querySelector(".card__text").textContent = data.name;
+  return cardElement;
+}
+let cardTemplate = document.querySelector("#card");
+
+for (card of initialCards) {
+  let newCard = getCardElement(card);
+  cardTemplate.after(newCard);
+}
