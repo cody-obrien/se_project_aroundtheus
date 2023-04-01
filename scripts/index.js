@@ -25,13 +25,40 @@ let initialCards = [
   },
 ];
 
-let profileBtnEdit = document.querySelector(".profile__button-edit");
 let modal = document.querySelector(".modal");
-profileBtnEdit.addEventListener("click", function (event) {
-  modal.classList.add("modal_opened");
-});
+let inputTitle = document.querySelector('[name = "title"]');
+let inputDesc = document.querySelector('[name = "description"]');
+let profileTitle = document.querySelector(".profile__title");
+let profileDesc = document.querySelector(".profile__description");
 
-let closeButton = document.querySelector(".modal__button-close");
-closeButton.addEventListener("click", function (event) {
-  modal.classList.remove("modal_opened");
-});
+function getTitlesAndDescriptions() {
+  let inputTitle = document.querySelector('[name = "title"]');
+  let inputDesc = document.querySelector('[name = "description"]');
+  let profileTitle = document.querySelector(".profile__title");
+  let profileDesc = document.querySelector(".profile__description");
+}
+document
+  .querySelector(".profile__button-edit")
+  .addEventListener("click", function (event) {
+    getTitlesAndDescriptions();
+    modal.classList.add("modal_opened");
+
+    inputTitle.value = profileTitle.textContent;
+    inputDesc.value = profileDesc.textContent;
+  });
+
+document
+  .querySelector(".modal__button-close")
+  .addEventListener("click", function (event) {
+    modal.classList.remove("modal_opened");
+  });
+
+document
+  .querySelector(".modal__button-save")
+  .addEventListener("click", function (event) {
+    getTitlesAndDescriptions();
+    event.preventDefault();
+    profileDesc.textContent = inputDesc.value;
+    profileTitle.textContent = inputTitle.value;
+    modal.classList.remove("modal_opened");
+  });

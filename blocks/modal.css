@@ -53,6 +53,7 @@
   line-height: 22px;
   text-align: center;
   height: 50.15px;
+  cursor: pointer;
 }
 
 .modal__button-close {
