@@ -1,4 +1,4 @@
-let initialCards = [
+const initialCards = [
   {
     name: "Yosemite Valley",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -25,22 +25,15 @@ let initialCards = [
   },
 ];
 
-let modal = document.querySelector(".modal");
-let inputTitle = document.querySelector('[name = "title"]');
-let inputDesc = document.querySelector('[name = "description"]');
-let profileTitle = document.querySelector(".profile__title");
-let profileDesc = document.querySelector(".profile__description");
+const modal = document.querySelector(".modal");
+const inputTitle = document.querySelector('[name = "title"]');
+const inputDesc = document.querySelector('[name = "description"]');
+const profileTitle = document.querySelector(".profile__title");
+const profileDesc = document.querySelector(".profile__description");
 
-function getTitlesAndDescriptions() {
-  inputTitle = document.querySelector('[name = "title"]');
-  inputDesc = document.querySelector('[name = "description"]');
-  profileTitle = document.querySelector(".profile__title");
-  profileDesc = document.querySelector(".profile__description");
-}
 document
   .querySelector(".profile__button-edit")
   .addEventListener("click", function (event) {
-    getTitlesAndDescriptions();
     modal.classList.add("modal_opened");
 
     inputTitle.value = profileTitle.textContent;
@@ -54,25 +47,25 @@ document
   });
 
 document
-  .querySelector(".modal__button-save")
-  .addEventListener("click", function (event) {
-    getTitlesAndDescriptions();
+  .querySelector(".modal__form")
+  .addEventListener("submit", function (event) {
     event.preventDefault();
     profileDesc.textContent = inputDesc.value;
     profileTitle.textContent = inputTitle.value;
     modal.classList.remove("modal_opened");
   });
 function getCardElement(data) {
-  let cardTemplateContent = document.querySelector("#card").content;
-  let cardElement = cardTemplateContent.cloneNode(true);
-  cardElement.querySelector(".card__image").setAttribute("src", data.link);
-  cardElement.querySelector(".card__image").setAttribute("alt", data.name);
+  const cardTemplateContent = document.querySelector("#card").content;
+  const cardElement = cardTemplateContent.cloneNode(true);
+  const cardImage = cardElement.querySelector(".card__image");
+  cardImage.setAttribute("src", data.link);
+  cardImage.setAttribute("alt", data.name);
   cardElement.querySelector(".card__text").textContent = data.name;
   return cardElement;
 }
-let cardTemplate = document.querySelector("#card");
+const cardList = document.querySelector(".cards__list");
 
 for (card of initialCards) {
-  let newCard = getCardElement(card);
-  cardTemplate.after(newCard);
+  const newCard = getCardElement(card);
+  cardList.append(newCard);
 }

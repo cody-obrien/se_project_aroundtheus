@@ -24,7 +24,7 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  width: 430px;
+  /* width: 430px; */
 }
 
 .modal__heading {
@@ -84,5 +84,6 @@
   .modal__container {
     width: 282px;
     height: 322px;
+    padding: 22px;
   }
 }
