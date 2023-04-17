@@ -45,6 +45,11 @@
         <ul class="cards__list">
           <template id="card"
             ><li class="card">
+              <button
+                class="card__button-delete"
+                name="delete-button"
+                type="button"
+              ></button>
               <img class="card__image" />
               <div class="card__description">
                 <h2 class="card__text"></h2>
@@ -65,7 +70,7 @@
       <div class="modal__container">
         <button class="modal__button-close"></button>
         <p class="modal__heading">Edit Profile</p>
-        <form class="modal__form">
+        <form class="modal__form modal__form-profile">
           <input
             class="modal__form-input"
             type="text"
@@ -88,18 +93,18 @@
       <div class="modal__container">
         <button class="modal__button-close"></button>
         <p class="modal__heading">New Place</p>
-        <form class="modal__form">
+        <form class="modal__form modal__form-add">
           <input
             class="modal__form-input"
             type="text"
             placeholder="Title"
-            name="title"
+            name="place"
           />
           <input
             class="modal__form-input"
             type="text"
             placeholder="Image URL"
-            name="Image URL"
+            name="Image_URL"
           />
           <button class="modal__button-save" type="submit" name="save-button">
             Save
