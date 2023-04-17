@@ -61,7 +61,7 @@
     <footer class="footer">
       <p class="footer__copyright">© 2023 Around The U.S.</p>
     </footer>
-    <div class="modal">
+    <div class="modal modal-profile">
       <div class="modal__container">
         <button class="modal__button-close"></button>
         <p class="modal__heading">Edit Profile</p>
@@ -77,6 +77,29 @@
             type="text"
             placeholder="Explorer"
             name="description"
+          />
+          <button class="modal__button-save" type="submit" name="save-button">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="modal modal-add">
+      <div class="modal__container">
+        <button class="modal__button-close"></button>
+        <p class="modal__heading">New Place</p>
+        <form class="modal__form">
+          <input
+            class="modal__form-input"
+            type="text"
+            placeholder="Title"
+            name="title"
+          />
+          <input
+            class="modal__form-input"
+            type="text"
+            placeholder="Image URL"
+            name="Image URL"
           />
           <button class="modal__button-save" type="submit" name="save-button">
             Save
