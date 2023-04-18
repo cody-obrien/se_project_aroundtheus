@@ -12,3 +12,4 @@ Here is the link to the github pages deploy: [Page](https://cody-obrien.github.i
 - Responsive Design
 - Flexbox
 - Grid
+- Javascript

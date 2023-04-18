@@ -69,18 +69,18 @@
     <div class="modal modal-profile">
       <div class="modal__container">
         <button class="modal__button-close"></button>
-        <p class="modal__heading">Edit Profile</p>
+        <h2 class="modal__heading">Edit Profile</h2>
         <form class="modal__form modal__form-profile">
           <input
             class="modal__form-input"
             type="text"
-            placeholder="Jacques Cousteau"
+            placeholder="Name"
             name="title"
           />
           <input
             class="modal__form-input"
             type="text"
-            placeholder="Explorer"
+            placeholder="About"
             name="description"
           />
           <button class="modal__button-save" type="submit" name="save-button">
@@ -92,19 +92,21 @@
     <div class="modal modal-add">
       <div class="modal__container">
         <button class="modal__button-close"></button>
-        <p class="modal__heading">New Place</p>
+        <h2 class="modal__heading">New Place</h2>
         <form class="modal__form modal__form-add">
           <input
             class="modal__form-input"
             type="text"
             placeholder="Title"
             name="place"
+            required
           />
           <input
             class="modal__form-input"
-            type="text"
+            type="url"
             placeholder="Image URL"
             name="Image_URL"
+            required
           />
           <button class="modal__button-save" type="submit" name="save-button">
             Save
@@ -120,6 +122,6 @@
       </div>
     </div>
 
-    <script src="./scripts/index.js"></script>
+    <script src="./scripts/index.js" defer></script>
   </body>
 </html>

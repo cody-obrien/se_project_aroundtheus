@@ -3,7 +3,7 @@
   visibility: hidden;
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  transition: visibility 0s, opacity 0.5s linear;
+  transition: visibility 0s, opacity 0.2s linear;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -15,7 +15,7 @@
 .modal_opened {
   visibility: visible;
   opacity: 1;
-  transition: visibility 0s, opacity 0.5s linear;
+  transition: visibility 0s, opacity 0.2s linear;
 }
 
 .modal__container {
@@ -65,6 +65,12 @@
   text-align: center;
   height: 50.15px;
   cursor: pointer;
+  border: none;
+  transition: opacity 0.2s linear;
+}
+
+.modal__button-save:hover {
+  opacity: 0.6;
 }
 
 .modal__button-close {
@@ -80,6 +86,11 @@
   background-image: url("../images/close.svg");
   background-repeat: no-repeat;
   background-size: contain;
+  transition: opacity 0.2s linear;
+}
+
+.modal__button-close:hover {
+  opacity: 0.6;
 }
 .modal__image {
   max-width: 75vw;
@@ -103,7 +114,7 @@
 @media screen and (max-width: 800px) {
   .modal__container {
     width: 282px;
-    height: 322px;
+
     padding: 22px;
   }
 }

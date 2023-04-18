@@ -42,6 +42,7 @@
   position: absolute;
   top: 23px;
   right: 16px;
+  transition: opacity 0.2s linear;
 }
 .card__button-delete:hover {
   opacity: 0.6;
@@ -53,6 +54,7 @@
   height: 18px;
   border: none;
   cursor: pointer;
+  transition: opacity 0.2s linear;
 }
 .card__button-like-active {
   background: url("../images/like-active.svg");
