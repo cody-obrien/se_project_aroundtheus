@@ -28,24 +28,45 @@ const initialCards = [
 const cardList = document.querySelector(".cards__list");
 
 initialCards.forEach((element) => {
-  const newCard = getCardElement(element);
-  cardList.append(newCard);
+  cardList.append(getCardElement(element));
+});
+
+const modalPicture = document.querySelector(".modal-picture");
+const pictures = document.querySelectorAll(".card__image");
+pictures.forEach((item) => {
+  item.addEventListener("click", (event) => {
+    modalPicture.classList.add("modal_opened");
+    modalPicture
+      .querySelector(".modal__image")
+      .setAttribute("src", event.target.src);
+    modalPicture
+      .querySelector(".modal__image")
+      .setAttribute("alt", event.target.alt);
+    modalPicture.querySelector(".modal__caption").textContent =
+      event.target.alt;
+  });
 });
 
 const closeButtons = document.querySelectorAll(".modal__button-close");
-
-closeButtons.forEach(function (item) {
+closeButtons.forEach((item) => {
   item.addEventListener("click", function (event) {
     event.target.closest(".modal").classList.remove("modal_opened");
   });
 });
 
 const likeButtons = document.querySelectorAll(".card__button-like");
-likeButtons.forEach(function (item) {
-  item.addEventListener("click", function (event) {
+likeButtons.forEach((item) => {
+  item.addEventListener("click", (event) => {
     event.target
       .closest(".card__button-like")
       .classList.toggle("card__button-like-active");
+  });
+});
+
+const deleteButtons = document.querySelectorAll(".card__button-delete");
+deleteButtons.forEach((item) => {
+  item.addEventListener("click", (event) => {
+    event.target.closest(".card").remove();
   });
 });
 
@@ -56,7 +77,7 @@ const profileTitle = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__description");
 document
   .querySelector(".profile__button-edit")
-  .addEventListener("click", function (event) {
+  .addEventListener("click", (event) => {
     modalProfile.classList.add("modal_opened");
 
     inputTitle.value = profileTitle.textContent;
@@ -65,7 +86,7 @@ document
 
 document
   .querySelector(".modal__form-profile")
-  .addEventListener("submit", function (event) {
+  .addEventListener("submit", (event) => {
     event.preventDefault();
     profileDesc.textContent = inputDesc.value;
     profileTitle.textContent = inputTitle.value;
@@ -76,7 +97,7 @@ const modalAdd = document.querySelector(".modal-add");
 const modalFormAdd = document.querySelector(".modal__form-add");
 document
   .querySelector(".profile__button-add")
-  .addEventListener("click", function (event) {
+  .addEventListener("click", (event) => {
     modalAdd.classList.add("modal_opened");
     modalFormAdd.reset();
   });
@@ -85,17 +106,23 @@ const inputPlace = document.querySelector('[name = "place"]');
 const inputImageURL = document.querySelector('[name = "Image_URL"]');
 document
   .querySelector(".modal__form-add")
-  .addEventListener("submit", function (event) {
+  .addEventListener("submit", (event) => {
     event.preventDefault();
     const newPlace = { name: inputPlace.value, link: inputImageURL.value };
 
     cardList.prepend(getCardElement(newPlace));
     document
       .querySelector(".card__button-like")
-      .addEventListener("click", function (event) {
+      .addEventListener("click", (event) => {
         event.target
           .closest(".card__button-like")
           .classList.toggle("card__button-like-active");
+      });
+
+    document
+      .querySelector(".card__button-delete")
+      .addEventListener("click", (event) => {
+        event.target.closest(".card").remove();
       });
 
     event.target.closest(".modal").classList.remove("modal_opened");
