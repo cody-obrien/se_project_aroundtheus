@@ -3,7 +3,7 @@
   visibility: hidden;
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  transition: visibility 0s, opacity 0.2s linear;
+  transition: visibility 0.2s, opacity 0.2s linear;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -15,7 +15,7 @@
 .modal_opened {
   visibility: visible;
   opacity: 1;
-  transition: visibility 0s, opacity 0.2s linear;
+  transition: visibility 0.2s, opacity 0.2s linear;
 }
 
 .modal__container {
