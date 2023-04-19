@@ -86,7 +86,7 @@ function getCardElement(data) {
   cardImage.setAttribute("src", data.link);
   cardImage.setAttribute("alt", data.name);
   cardElement.querySelector(".card__text").textContent = data.name;
-  cardImage.addEventListener("click", function () {
+  cardImage.addEventListener("click", () => {
     openModal(modalPicture);
     setPictureModal(cardImage);
   });
