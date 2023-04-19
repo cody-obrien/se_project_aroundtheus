@@ -86,8 +86,11 @@ function getCardElement(data) {
   cardImage.setAttribute("src", data.link);
   cardImage.setAttribute("alt", data.name);
   cardElement.querySelector(".card__text").textContent = data.name;
-  cardImage.addEventListener("click", () => openModal(modalPicture));
-  cardImage.addEventListener("click", () => setPictureModal(cardImage));
+  cardImage.addEventListener("click", function () {
+    openModal(modalPicture);
+    setPictureModal(cardImage);
+  });
+
   cardLikeButton.addEventListener("click", (event) =>
     toggleActiveLike(event.target.closest(".card__button-like"))
   );
