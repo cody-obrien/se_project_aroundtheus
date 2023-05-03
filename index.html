@@ -72,17 +72,27 @@
         <h2 class="modal__heading">Edit Profile</h2>
         <form class="modal__form modal__form-profile">
           <input
+            required
             class="modal__form-input"
             type="text"
             placeholder="Name"
             name="title"
+            id="title-input"
+            minlength="2"
+            maxlength="40"
           />
+          <span class="title-input-error"></span>
           <input
+            required
             class="modal__form-input"
             type="text"
             placeholder="About"
             name="description"
+            id="description-input"
+            minlength="2"
+            maxlength="400"
           />
+          <span class="description-input-error"></span>
           <button class="modal__button-save" type="submit" name="save-button">
             Save
           </button>
@@ -95,19 +105,25 @@
         <h2 class="modal__heading">New Place</h2>
         <form class="modal__form modal__form-add">
           <input
+            required
             class="modal__form-input"
             type="text"
             placeholder="Title"
             name="place"
-            required
+            id="place-input"
+            minlength="1"
+            maxlength="30"
           />
+          <span class="place-input-error"></span>
           <input
+            required
             class="modal__form-input"
             type="url"
             placeholder="Image URL"
             name="Image_URL"
-            required
+            id="url-input"
           />
+          <span class="url-input-error"></span>
           <button class="modal__button-save" type="submit" name="save-button">
             Save
           </button>
