@@ -54,6 +54,10 @@
   border: none;
   border-bottom: rgba(0, 0, 0, 0.2) solid 1px;
 }
+
+.modal__form-input-invalid {
+  border-bottom: #ff0000 solid 1px;
+}
 .modal__button-save {
   padding: 0;
   border-radius: 2px;
@@ -67,6 +71,14 @@
   cursor: pointer;
   border: none;
   transition: opacity 0.2s linear;
+}
+
+.modal__button-disabled {
+  opacity: 0.2;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  pointer-events: none;
 }
 
 .modal__button-save:hover {
@@ -101,6 +113,12 @@
   margin: 10px 0 0 0;
   font-size: 12px;
   line-height: 14px;
+}
+
+.input-error {
+  color: #ff0000;
+  font-size: 12px;
+  line-height: 15px;
 }
 @media screen and (max-width: 878px) {
   .modal__button-close {
