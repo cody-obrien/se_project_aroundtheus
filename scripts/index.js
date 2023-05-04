@@ -29,6 +29,15 @@ const cardTemplateContent = document.querySelector("#card").content;
 const cardList = document.querySelector(".cards__list");
 const modalPicture = document.querySelector(".modal-picture");
 
+const modalList = Array.from(document.querySelectorAll(".modal"));
+modalList.forEach((modal) => {
+  modal.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("modal")) {
+      closeModal(modal);
+    }
+  });
+});
+
 initialCards.forEach((element) => {
   cardList.append(getCardElement(element));
 });

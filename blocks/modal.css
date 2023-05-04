@@ -11,7 +11,9 @@
   right: 0;
   z-index: 999;
   padding: 0 19px;
+  cursor: pointer;
 }
+
 .modal_opened {
   visibility: visible;
   opacity: 1;
@@ -29,6 +31,7 @@
   justify-content: flex-start;
   flex-direction: column;
   width: 430px;
+  cursor: default;
 }
 .modal__picture-container {
   margin: auto;
@@ -36,6 +39,7 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+  cursor: default;
 }
 
 .modal__heading {
