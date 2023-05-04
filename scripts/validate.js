@@ -7,59 +7,62 @@ const config = {
   errorClass: "modal__input-error_active",
 };
 
-function isValid(formElement, inputElement) {
+function toggleInputError(formElement, inputElement) {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-    return inputElement.validity.valid;
+    showInputError(
+      formElement,
+      inputElement,
+      inputElement.validationMessage,
+      config
+    );
   } else {
-    hideInputError(formElement, inputElement);
-    return inputElement.validity.valid;
+    hideInputError(formElement, inputElement, config);
   }
 }
 
-function showInputError(formElement, inputElement, errorMessage) {
+function showInputError(formElement, inputElement, errorMessage, config) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(config.inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(config.errorClass);
 }
 
-function hideInputError(formElement, inputElement) {
+function hideInputError(formElement, inputElement, config) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(config.inputErrorClass);
   errorElement.classList.remove(config.errorClass);
   errorElement.textContent = "";
 }
 
-function setEventListeners(formElement) {
+function setEventListeners(formElement, config) {
   const formButton = formElement.querySelector(config.submitButtonSelector);
-  const inputList = Array.from(
-    formElement.querySelectorAll(config.inputSelector)
-  );
+  const inputList = [...formElement.querySelectorAll(config.inputSelector)];
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
-      isValid(formElement, inputElement);
-      toggleInputFieldValidity(inputElement);
+      toggleInputError(formElement, inputElement);
       toggleSubmitButton(formButton, checkFormValidity(inputList));
     });
   });
 }
 
-function enableValidation(options) {
-  const formList = Array.from(document.querySelectorAll(options.formSelector));
+function enableValidation(config) {
+  const formList = [...document.querySelectorAll(config.formSelector)];
   formList.forEach((formElement) => {
+    const inputList = [...formElement.querySelectorAll(config.inputSelector)];
+
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
       toggleSubmitButton(
-        formElement.querySelector(options.submitButtonSelector),
-        checkFormValidity(formElement)
+        formElement.querySelector(config.submitButtonSelector),
+        checkFormValidity(inputList)
       );
     });
-    setEventListeners(formElement);
+    setEventListeners(formElement, config);
   });
 }
-function toggleSubmitButton(button, validity) {
-  if (validity) {
+function toggleSubmitButton(button, isValid) {
+  if (isValid) {
     button.disabled = false;
     button.classList.remove(config.inactiveButtonClass);
   } else {
@@ -67,17 +70,10 @@ function toggleSubmitButton(button, validity) {
     button.classList.add(config.inactiveButtonClass);
   }
 }
-function checkFormValidity(formElement) {
-  return formElement.every((inputField) => {
+function checkFormValidity(inputFieldList) {
+  return inputFieldList.every((inputField) => {
     return inputField.validity.valid;
   });
-}
-function toggleInputFieldValidity(inputElement) {
-  if (!inputElement.validity.valid) {
-    inputElement.classList.add(config.inputErrorClass);
-  } else {
-    inputElement.classList.remove(config.inputErrorClass);
-  }
 }
 
 enableValidation(config);

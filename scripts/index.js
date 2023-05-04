@@ -29,23 +29,6 @@ const cardTemplateContent = document.querySelector("#card").content;
 const cardList = document.querySelector(".cards__list");
 const modalPicture = document.querySelector(".modal-picture");
 
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    modalList.forEach((modal) => {
-      closeModal(modal);
-    });
-  }
-});
-
-const modalList = Array.from(document.querySelectorAll(".modal"));
-modalList.forEach((modal) => {
-  modal.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains("modal")) {
-      closeModal(modal);
-    }
-  });
-});
-
 initialCards.forEach((element) => {
   cardList.append(getCardElement(element));
 });
@@ -120,10 +103,27 @@ function getCardElement(data) {
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", closeModalByEscape);
+  modal.addEventListener("mousedown", closeModalByOutsideClick);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closeModalByEscape);
+  modal.removeEventListener("mousedown", closeModalByOutsideClick);
+}
+
+function closeModalByEscape(event) {
+  if (event.key === "Escape") {
+    const openModal = document.querySelector(".modal_opened");
+    closeModal(openModal);
+  }
+}
+
+function closeModalByOutsideClick(event) {
+  if (event.target === event.currentTarget) {
+    closeModal(event.target);
+  }
 }
 
 function setPictureModal(image) {
