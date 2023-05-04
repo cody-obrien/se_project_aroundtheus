@@ -37,6 +37,7 @@ function hideInputError(formElement, inputElement, config) {
 function setEventListeners(formElement, config) {
   const formButton = formElement.querySelector(config.submitButtonSelector);
   const inputList = [...formElement.querySelectorAll(config.inputSelector)];
+  toggleSubmitButton(formButton, false);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
@@ -53,6 +54,8 @@ function enableValidation(config) {
 
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
+    });
+    formElement.addEventListener("reset", (evt) => {
       toggleSubmitButton(
         formElement.querySelector(config.submitButtonSelector),
         checkFormValidity(inputList)
