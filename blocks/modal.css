@@ -119,10 +119,15 @@
   line-height: 14px;
 }
 
-.input-error {
+.modal__input-error {
   color: #ff0000;
   font-size: 12px;
   line-height: 15px;
+  visibility: none;
+}
+
+.modal__input-error_active {
+  visibility: visible;
 }
 @media screen and (max-width: 878px) {
   .modal__button-close {
