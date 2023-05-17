@@ -1,4 +1,5 @@
 import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 import {
   // modalPicture,
   openModal,
@@ -7,6 +8,15 @@ import {
   // closeModalByOutsideClick,
   // setPictureModal,
 } from "../utils/utils.js";
+
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__form-input",
+  submitButtonSelector: ".modal__button-save",
+  inactiveButtonClass: "modal__button-disabled",
+  inputErrorClass: "modal__form-input-invalid",
+  errorClass: "modal__input-error_active",
+};
 
 const initialCards = [
   {
@@ -36,12 +46,18 @@ const initialCards = [
 ];
 
 // const cardTemplateContent = document.querySelector("#card").content;
-const cardList = document.querySelector(".cards__list");
 // const modalPicture = document.querySelector(".modal-picture");
-
+const cardList = document.querySelector(".cards__list");
 initialCards.forEach((initialCard) => {
   const card = new Card(initialCard, "#card");
+
   cardList.append(card.getCardElement());
+});
+
+const formList = [...document.querySelectorAll(".modal__form")];
+formList.forEach((form) => {
+  const newFormValidator = new FormValidator(config, form);
+  newFormValidator.enableValidation();
 });
 
 const closeButtons = document.querySelectorAll(".modal__button-close");
@@ -92,6 +108,19 @@ document
     modalFormAdd.reset();
   });
 
+function fillProfileForm() {
+  inputTitle.value = profileTitle.textContent;
+  inputDesc.value = profileDesc.textContent;
+}
+
+function setProfileChanges() {
+  profileDesc.textContent = inputDesc.value;
+  profileTitle.textContent = inputTitle.value;
+}
+
+function addNewCard(card) {
+  cardList.prepend(card);
+}
 // function getCardElement(data) {
 //   const cardElement = cardTemplateContent.cloneNode(true);
 //   const cardImage = cardElement.querySelector(".card__image");
@@ -146,16 +175,6 @@ document
 //   modalPicture.querySelector(".modal__caption").textContent = image.alt;
 // }
 
-function fillProfileForm() {
-  inputTitle.value = profileTitle.textContent;
-  inputDesc.value = profileDesc.textContent;
-}
-
-function setProfileChanges() {
-  profileDesc.textContent = inputDesc.value;
-  profileTitle.textContent = inputTitle.value;
-}
-
 // function toggleActiveLike(likeButton) {
 //   likeButton.classList.toggle("card__button-like-active");
 // }
@@ -163,7 +182,3 @@ function setProfileChanges() {
 // function deleteCard(card) {
 //   card.remove();
 // }
-
-function addNewCard(card) {
-  cardList.prepend(card);
-}
