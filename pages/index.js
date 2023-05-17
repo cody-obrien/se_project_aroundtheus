@@ -8,7 +8,6 @@ import {
   // closeModalByOutsideClick,
   // setPictureModal,
 } from "../utils/utils.js";
-
 const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__form-input",
@@ -54,11 +53,12 @@ initialCards.forEach((initialCard) => {
   cardList.append(card.getCardElement());
 });
 
-const formList = [...document.querySelectorAll(".modal__form")];
-formList.forEach((form) => {
-  const newFormValidator = new FormValidator(config, form);
-  newFormValidator.enableValidation();
-});
+// const formList = [...document.querySelectorAll(".modal__form")];
+// formList.forEach((form) => {
+//   const newFormValidator = new FormValidator(config, form);
+//   newFormValidator.enableValidation();
+//   newFormValidator.toggleSubmitButton();
+// });
 
 const closeButtons = document.querySelectorAll(".modal__button-close");
 closeButtons.forEach((item) => {
@@ -68,15 +68,20 @@ closeButtons.forEach((item) => {
 });
 
 const modalProfile = document.querySelector(".modal-profile");
+const modalFormProfile = document.querySelector(".modal__form-profile");
 const inputTitle = document.querySelector('[name = "title"]');
 const inputDesc = document.querySelector('[name = "description"]');
 const profileTitle = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__description");
+const profileFormValidator = new FormValidator(config, modalFormProfile);
+profileFormValidator.enableValidation();
 document
   .querySelector(".profile__button-edit")
-  .addEventListener("click", (event) => {
+  .addEventListener("click", () => {
     openModal(modalProfile);
     fillProfileForm();
+
+    profileFormValidator.toggleSubmitButton();
   });
 
 document
@@ -89,8 +94,12 @@ document
 
 const modalAdd = document.querySelector(".modal-add");
 const modalFormAdd = document.querySelector(".modal__form-add");
+const addFormValidator = new FormValidator(config, modalFormAdd);
+addFormValidator.enableValidation();
 document.querySelector(".profile__button-add").addEventListener("click", () => {
   openModal(modalAdd);
+
+  addFormValidator.toggleSubmitButton();
 });
 
 const inputPlace = document.querySelector('[name = "place"]');
