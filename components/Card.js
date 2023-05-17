@@ -1,3 +1,12 @@
+import {
+  modalPicture,
+  openModal,
+  //   closeModal,
+  //   closeModalByEscape,
+  //   closeModalByOutsideClick,
+  setPictureModal,
+} from "../utils/utils.js";
+
 export default class Card {
   constructor(data, cardSelector) {
     this.image = data.link;
@@ -20,10 +29,10 @@ export default class Card {
   }
 
   #setEventListeners() {
-    // this.cardImage.addEventListener("click", () => {
-    //   openModal(modalPicture);
-    //   setPictureModal(cardImage);
-    // });
+    this.cardImage.addEventListener("click", () => {
+      openModal(modalPicture);
+      setPictureModal(this.cardImage);
+    });
 
     this.cardLikeButton.addEventListener("click", () =>
       this.#toggleActiveLike()
