@@ -44,21 +44,12 @@ const initialCards = [
   },
 ];
 
-// const cardTemplateContent = document.querySelector("#card").content;
-// const modalPicture = document.querySelector(".modal-picture");
 const cardList = document.querySelector(".cards__list");
 initialCards.forEach((initialCard) => {
   const card = new Card(initialCard, "#card");
 
   cardList.append(card.getCardElement());
 });
-
-// const formList = [...document.querySelectorAll(".modal__form")];
-// formList.forEach((form) => {
-//   const newFormValidator = new FormValidator(config, form);
-//   newFormValidator.enableValidation();
-//   newFormValidator.toggleSubmitButton();
-// });
 
 const closeButtons = document.querySelectorAll(".modal__button-close");
 closeButtons.forEach((item) => {
@@ -130,64 +121,3 @@ function setProfileChanges() {
 function addNewCard(card) {
   cardList.prepend(card);
 }
-// function getCardElement(data) {
-//   const cardElement = cardTemplateContent.cloneNode(true);
-//   const cardImage = cardElement.querySelector(".card__image");
-//   const cardLikeButton = cardElement.querySelector(".card__button-like");
-//   const cardDeleteButton = cardElement.querySelector(".card__button-delete");
-//   cardImage.setAttribute("src", data.link);
-//   cardImage.setAttribute("alt", data.name);
-//   cardElement.querySelector(".card__text").textContent = data.name;
-//   cardImage.addEventListener("click", () => {
-//     openModal(modalPicture);
-//     setPictureModal(cardImage);
-//   });
-
-//   cardLikeButton.addEventListener("click", (event) =>
-//     toggleActiveLike(event.target.closest(".card__button-like"))
-//   );
-//   cardDeleteButton.addEventListener("click", (event) =>
-//     deleteCard(event.target.closest(".card"))
-//   );
-
-//   return cardElement;
-// }
-
-// function openModal(modal) {
-//   modal.classList.add("modal_opened");
-//   document.addEventListener("keydown", closeModalByEscape);
-//   modal.addEventListener("mousedown", closeModalByOutsideClick);
-// }
-
-// function closeModal(modal) {
-//   modal.classList.remove("modal_opened");
-//   document.removeEventListener("keydown", closeModalByEscape);
-//   modal.removeEventListener("mousedown", closeModalByOutsideClick);
-// }
-
-// function closeModalByEscape(event) {
-//   if (event.key === "Escape") {
-//     const openModal = document.querySelector(".modal_opened");
-//     closeModal(openModal);
-//   }
-// }
-
-// function closeModalByOutsideClick(event) {
-//   if (event.target === event.currentTarget) {
-//     closeModal(event.target);
-//   }
-// }
-
-// function setPictureModal(image) {
-//   modalPicture.querySelector(".modal__image").setAttribute("src", image.src);
-//   modalPicture.querySelector(".modal__image").setAttribute("alt", image.alt);
-//   modalPicture.querySelector(".modal__caption").textContent = image.alt;
-// }
-
-// function toggleActiveLike(likeButton) {
-//   likeButton.classList.toggle("card__button-like-active");
-// }
-
-// function deleteCard(card) {
-//   card.remove();
-// }

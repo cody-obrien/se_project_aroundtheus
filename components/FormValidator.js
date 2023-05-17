@@ -66,27 +66,9 @@ export default class FormValidator {
         this.toggleSubmitButton();
       });
     });
-    // const formButton = this.formElement.querySelector(
-    //   config.submitButtonSelector
-    // );
-    // const inputList = [...formElement.querySelectorAll(config.inputSelector)];
-    // this.toggleSubmitButton(false);
   }
 
   enableValidation() {
-    // const formList = [...document.querySelectorAll(config.formSelector)];
-    // formList.forEach((formElement) => {
-    // const inputList = [...formElement.querySelectorAll(config.inputSelector)];
-
-    // this.formElement.addEventListener("submit", (evt) => {
-    //   evt.preventDefault();
-    // });
-    // this.formElement.addEventListener("reset", (evt) => {
-    //   toggleSubmitButton(
-    //     this.formElement.querySelector(this.submitButtonSelector),
-    //     this.#checkFormValidity()
-    //   );
-    // });
     this.#setEventListeners();
   }
 
