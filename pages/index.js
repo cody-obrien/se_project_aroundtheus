@@ -33,7 +33,6 @@ const modalPicture = document.querySelector(".modal-picture");
 
 initialCards.forEach((initialCard) => {
   const card = new Card(initialCard, "#card");
-
   cardList.append(card.getCardElement());
 });
 
@@ -76,8 +75,11 @@ document
   .querySelector(".modal__form-add")
   .addEventListener("submit", (event) => {
     event.preventDefault();
-    const newPlace = { name: inputPlace.value, link: inputImageURL.value };
-    addNewCard(getCardElement(newPlace));
+    const newPlace = new Card(
+      { name: inputPlace.value, link: inputImageURL.value },
+      "#card"
+    );
+    addNewCard(newPlace.getCardElement());
     closeModal(event.target.closest(".modal"));
     modalFormAdd.reset();
   });
