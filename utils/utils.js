@@ -25,16 +25,10 @@ function closeModalByOutsideClick(event) {
   }
 }
 
-function setPictureModal(image) {
-  modalPicture.querySelector(".modal__image").setAttribute("src", image.src);
-  modalPicture.querySelector(".modal__image").setAttribute("alt", image.alt);
-  modalPicture.querySelector(".modal__caption").textContent = image.alt;
-}
 export {
   modalPicture,
   openModal,
   closeModal,
   closeModalByEscape,
   closeModalByOutsideClick,
-  setPictureModal,
 };

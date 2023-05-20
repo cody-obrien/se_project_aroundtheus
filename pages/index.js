@@ -6,7 +6,6 @@ import {
   closeModal,
   // closeModalByEscape,
   // closeModalByOutsideClick,
-  // setPictureModal,
 } from "../utils/utils.js";
 const config = {
   formSelector: ".modal__form",
@@ -46,9 +45,7 @@ const initialCards = [
 
 const cardList = document.querySelector(".cards__list");
 initialCards.forEach((initialCard) => {
-  const card = new Card(initialCard, "#card");
-
-  cardList.append(card.getCardElement());
+  cardList.append(createCard(initialCard));
 });
 
 const closeButtons = document.querySelectorAll(".modal__button-close");
@@ -116,6 +113,11 @@ function fillProfileForm() {
 function setProfileChanges() {
   profileDesc.textContent = inputDesc.value;
   profileTitle.textContent = inputTitle.value;
+}
+
+function createCard(cardData) {
+  const card = new Card(cardData, "#card");
+  return card.getCardElement();
 }
 
 function addNewCard(card) {
