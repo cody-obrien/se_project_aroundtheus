@@ -5,7 +5,7 @@ export default class PopupWithImage extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
     this.#modal = document.querySelector(popupSelector);
-    this.#modalCloseButton = this.#modal.querySelector("modal__button-close");
+    this.#modalCloseButton = this.#modal.querySelector(".modal__button-close");
   }
   open({ src, alt }) {
     const modalImage = this.#modal.querySelector(".modal__image");
