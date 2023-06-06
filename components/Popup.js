@@ -1,0 +1,25 @@
+export default class Popup {
+  #modal;
+  #modalCloseButton;
+  constructor(popupSelector) {
+    this.#modal = document.querySelector(popupSelector);
+    this.#modalCloseButton = this.#modal.querySelector(".modal__button-close");
+  }
+  open() {
+    this.#modal.classList.add("modal_opened");
+  }
+  close() {
+    this.#modal.classList.remove("modal_opened");
+  }
+  #handleEscClose(event) {
+    if (event.key === "Escape") {
+      this.close();
+    }
+  }
+  setEventListeners() {
+    this.#modalCloseButton.addEventListener("click", this.close);
+    this.#modal.addEventListener("keydown", (event) => {
+      this.#handleEscClose(event);
+    });
+  }
+}

@@ -15,11 +15,13 @@ export default class Card {
   #cardLikeButton;
   #cardDeleteButton;
   #cardText;
+  #handleCardClick;
 
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, handleCardClick) {
     this.#image = data.link;
     this.#name = data.name;
     this.#cardSelector = cardSelector;
+    this.#handleCardClick = handleCardClick;
   }
   #makeCardElement() {
     this.#cardElement = document
@@ -41,7 +43,7 @@ export default class Card {
 
   #setEventListeners() {
     this.#cardImage.addEventListener("click", () => {
-      this.#handleModal();
+      this.#handleCardClick();
     });
 
     this.#cardLikeButton.addEventListener("click", () =>
@@ -61,10 +63,10 @@ export default class Card {
       this.#cardImage.alt;
   }
 
-  #handleModal() {
-    openModal(modalPicture);
-    this.#setPictureModal();
-  }
+  // #handleModal() {
+  //   openModal(modalPicture);
+  //   this.#setPictureModal();
+  // }
 
   #toggleActiveLike() {
     this.#cardLikeButton.classList.toggle("card__button-like-active");
@@ -78,5 +80,8 @@ export default class Card {
     this.#makeCardElement();
     this.#setEventListeners();
     return this.#cardElement;
+  }
+  getCardData() {
+    return { src: this.#image, alt: this.#name };
   }
 }

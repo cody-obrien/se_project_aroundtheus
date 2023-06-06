@@ -1,6 +1,8 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+
 import {
   // modalPicture,
   openModal,
@@ -49,25 +51,25 @@ const cardList = document.querySelector(".cards__list");
 //   cardList.append(createCard(initialCard));
 // });
 
+const pictureModal = new PopupWithImage(".modal-picture");
+pictureModal.setEventListeners();
 const cardSection = new Section(
   {
     items: initialCards,
     renderer: (cardData) => {
-      const card = new Card(cardData, "#card");
-      cardSection.addItem(card.getCardElement());
+      cardSection.addItem(createCard(cardData));
     },
   },
   ".cards__list"
 );
-
 cardSection.renderItems();
 
-const closeButtons = document.querySelectorAll(".modal__button-close");
-closeButtons.forEach((item) => {
-  item.addEventListener("click", (event) => {
-    closeModal(event.target.closest(".modal"));
-  });
-});
+// const closeButtons = document.querySelectorAll(".modal__button-close");
+// closeButtons.forEach((item) => {
+//   item.addEventListener("click", (event) => {
+//     closeModal(event.target.closest(".modal"));
+//   });
+// });
 
 const modalProfile = document.querySelector(".modal-profile");
 const modalFormProfile = document.querySelector(".modal__form-profile");
@@ -130,7 +132,9 @@ function setProfileChanges() {
 }
 
 function createCard(cardData) {
-  const card = new Card(cardData, "#card");
+  const card = new Card(cardData, "#card", () => {
+    pictureModal.open(card.getCardData());
+  });
   return card.getCardElement();
 }
 
