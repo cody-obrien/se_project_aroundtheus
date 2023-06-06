@@ -1,5 +1,6 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
 import {
   // modalPicture,
   openModal,
@@ -44,9 +45,22 @@ const initialCards = [
 ];
 
 const cardList = document.querySelector(".cards__list");
-initialCards.forEach((initialCard) => {
-  cardList.append(createCard(initialCard));
-});
+// initialCards.forEach((initialCard) => {
+//   cardList.append(createCard(initialCard));
+// });
+
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (cardData) => {
+      const card = new Card(cardData, "#card");
+      cardSection.addItem(card.getCardElement());
+    },
+  },
+  ".cards__list"
+);
+
+cardSection.renderItems();
 
 const closeButtons = document.querySelectorAll(".modal__button-close");
 closeButtons.forEach((item) => {
