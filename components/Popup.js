@@ -20,8 +20,13 @@ export default class Popup {
   }
   setEventListeners() {
     this.#modalCloseButton.addEventListener("click", this.close);
-    this.#modal.addEventListener("keydown", (event) => {
+    document.addEventListener("keydown", (event) => {
       this.#handleEscClose(event);
+    });
+    this.#modal.addEventListener("mousedown", (event) => {
+      if (event.target === event.currentTarget) {
+        this.close();
+      }
     });
   }
 }
