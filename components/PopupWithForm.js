@@ -14,19 +14,21 @@ export default class PopupWithForm extends Popup {
     this.#modalInputs = this.#modalForm.querySelectorAll(".modal__form-input");
   }
   close() {
-    this.#modalForm.reset();
     super.close();
+    this.#modalForm.reset();
   }
   #getInputValues() {
     const inputsObject = {};
-    this.#modalInputs.array.forEach((element) => {
+    this.#modalInputs.forEach((element) => {
       inputsObject[element.name] = element.value;
     });
+    console.log(inputsObject);
     return inputsObject;
   }
 
   setEventListeners() {
     super.setEventListeners();
+    this.#modalCloseButton.addEventListener("click", this.close);
     this.#modalForm.addEventListener("submit", (event) => {
       event.preventDefault();
       this.#handleFormSubmit(this.#getInputValues());

@@ -2,6 +2,8 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 import {
   // modalPicture,
@@ -10,6 +12,7 @@ import {
   // closeModalByEscape,
   // closeModalByOutsideClick,
 } from "../utils/utils.js";
+
 const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__form-input",
@@ -70,6 +73,15 @@ cardSection.renderItems();
 //     closeModal(event.target.closest(".modal"));
 //   });
 // });
+const userInfo = new UserInfo({
+  userNameSelector: ".profile__title",
+  userJobSelector: ".profile__description",
+});
+const profileModal = new PopupWithForm(".modal-profile", () => {
+  userInfo.setUserInfo({ name: inputTitle.value, job: inputDesc.value });
+  profileModal.close();
+});
+profileModal.setEventListeners();
 
 const modalProfile = document.querySelector(".modal-profile");
 const modalFormProfile = document.querySelector(".modal__form-profile");
@@ -82,54 +94,68 @@ profileFormValidator.enableValidation();
 document
   .querySelector(".profile__button-edit")
   .addEventListener("click", () => {
-    openModal(modalProfile);
-    fillProfileForm();
-
+    inputTitle.value = userInfo.getUserInfo().userName;
+    inputDesc.value = userInfo.getUserInfo().userJob;
+    profileModal.open();
     profileFormValidator.toggleSubmitButton();
   });
 
-document
-  .querySelector(".modal__form-profile")
-  .addEventListener("submit", (event) => {
-    event.preventDefault();
-    setProfileChanges();
-    closeModal(event.target.closest(".modal"));
-  });
+// document
+//   .querySelector(".modal__form-profile")
+//   .addEventListener("submit", (event) => {
+//     // event.preventDefault();
+//     // setProfileChanges();
+//     // closeModal(event.target.closest(".modal"));
+//   });
 
-const modalAdd = document.querySelector(".modal-add");
+const cardModal = new PopupWithForm(".modal-add", () => {
+  const newCard = new Section(
+    {
+      items: [{ name: inputPlace.value, link: inputImageURL.value }],
+      renderer: (cardData) => {
+        newCard.addItem(createCard(cardData));
+      },
+    },
+    ".cards__list"
+  );
+  newCard.renderItems();
+
+  cardModal.close();
+});
+cardModal.setEventListeners();
+// const modalAdd = document.querySelector(".modal-add");
 const modalFormAdd = document.querySelector(".modal__form-add");
 const addFormValidator = new FormValidator(config, modalFormAdd);
 addFormValidator.enableValidation();
 document.querySelector(".profile__button-add").addEventListener("click", () => {
-  openModal(modalAdd);
-
+  cardModal.open();
   addFormValidator.toggleSubmitButton();
 });
 
 const inputPlace = document.querySelector('[name = "place"]');
 const inputImageURL = document.querySelector('[name = "Image_URL"]');
-document
-  .querySelector(".modal__form-add")
-  .addEventListener("submit", (event) => {
-    event.preventDefault();
-    const newPlace = new Card(
-      { name: inputPlace.value, link: inputImageURL.value },
-      "#card"
-    );
-    addNewCard(newPlace.getCardElement());
-    closeModal(event.target.closest(".modal"));
-    modalFormAdd.reset();
-  });
+// document
+//   .querySelector(".modal__form-add")
+//   .addEventListener("submit", (event) => {
+//     event.preventDefault();
+//     const newPlace = new Card(
+//       { name: inputPlace.value, link: inputImageURL.value },
+//       "#card"
+//     );
+//     // addNewCard(newPlace.getCardElement());
+//     closeModal(event.target.closest(".modal"));
+//     modalFormAdd.reset();
+//   });
 
-function fillProfileForm() {
-  inputTitle.value = profileTitle.textContent;
-  inputDesc.value = profileDesc.textContent;
-}
+// function fillProfileForm() {
+//   inputTitle.value = userInfo.getUserInfo().userName;
+//   inputDesc.value = userInfo.getUserInfo().userJob;
+// }
 
-function setProfileChanges() {
-  profileDesc.textContent = inputDesc.value;
-  profileTitle.textContent = inputTitle.value;
-}
+// function setProfileChanges({}) {
+//   profileDesc.textContent = inputDesc.value;
+//   profileTitle.textContent = inputTitle.value;
+// }
 
 function createCard(cardData) {
   const card = new Card(cardData, "#card", () => {
@@ -138,6 +164,6 @@ function createCard(cardData) {
   return card.getCardElement();
 }
 
-function addNewCard(card) {
-  cardList.prepend(card);
-}
+// function addNewCard(card) {
+//   cardList.prepend(card);
+// }

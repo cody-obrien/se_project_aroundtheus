@@ -19,7 +19,9 @@ export default class Popup {
     }
   }
   setEventListeners() {
-    this.#modalCloseButton.addEventListener("click", this.close);
+    this.#modalCloseButton.addEventListener("click", () => {
+      this.close();
+    });
     document.addEventListener("keydown", (event) => {
       this.#handleEscClose(event);
     });
