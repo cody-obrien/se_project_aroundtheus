@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Cody O'Brien" />
     <title>Around the U.S</title>
-    <link href="./pages/index.css" rel="stylesheet" />
+    <!-- <link href="./pages/index.css" rel="stylesheet" /> -->
   </head>
   <body class="page">
     <header class="header">
       <img
         class="header__logo"
-        src="./images/logo.svg"
+        src="<%=require('./images/logo.svg')%>"
         alt="Around the U.S. logo "
       />
     </header>
@@ -21,7 +21,7 @@
       <section class="profile">
         <img
           class="profile__image"
-          src="./images/jacques-cousteau.jpg"
+          src="<%=require('./images/jacques-cousteau.jpg')%>"
           alt="Cousteau Avatar"
         />
         <div class="profile__info">

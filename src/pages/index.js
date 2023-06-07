@@ -4,7 +4,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-
+import "./index.css";
 const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__form-input",
