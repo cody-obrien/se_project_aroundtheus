@@ -7,11 +7,11 @@ export default class PopupWithForm extends Popup {
   #modalInputs;
   constructor(popupSelector, handleFormSubmit) {
     super(popupSelector);
-    // this.#modal = document.querySelector(popupSelector);
-    // this.#modalCloseButton = this.#modal.querySelector(".modal__button-close");
+    this.#modal = document.querySelector(popupSelector);
+    this.#modalCloseButton = this.#modal.querySelector(".modal__button-close");
     this.#handleFormSubmit = handleFormSubmit;
     this.#modalForm = this.#modal.querySelector(".modal__form");
-    // this.#modalInputs = this.#modalForm.querySelectorAll(".modal__form-input");
+    this.#modalInputs = this.#modalForm.querySelectorAll(".modal__form-input");
   }
   close() {
     super.close();
@@ -28,7 +28,7 @@ export default class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    // this.#modalCloseButton.addEventListener("click", this.close);
+
     this.#modalForm.addEventListener("submit", (event) => {
       event.preventDefault();
       this.#handleFormSubmit(this.#getInputValues());

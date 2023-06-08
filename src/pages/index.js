@@ -60,16 +60,16 @@ const userInfo = new UserInfo({
   userNameSelector: ".profile__title",
   userJobSelector: ".profile__description",
 });
-const profileModal = new PopupWithForm(".modal-profile", () => {
-  userInfo.setUserInfo({ name: inputTitle.value, job: inputDesc.value });
+const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
+  userInfo.setUserInfo(inputs);
   profileModal.close();
 });
 profileModal.setEventListeners();
 
 const modalProfile = document.querySelector(".modal-profile");
 const modalFormProfile = document.querySelector(".modal__form-profile");
-const inputTitle = document.querySelector('[name = "title"]');
-const inputDesc = document.querySelector('[name = "description"]');
+const inputTitle = document.querySelector('[name = "name"]');
+const inputDesc = document.querySelector('[name = "job"]');
 const profileTitle = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__description");
 const profileFormValidator = new FormValidator(config, modalFormProfile);
@@ -77,23 +77,15 @@ profileFormValidator.enableValidation();
 document
   .querySelector(".profile__button-edit")
   .addEventListener("click", () => {
-    inputTitle.value = userInfo.getUserInfo().userName;
-    inputDesc.value = userInfo.getUserInfo().userJob;
+    const { userName, userJob } = userInfo.getUserInfo();
+    inputTitle.value = userName;
+    inputDesc.value = userJob;
     profileModal.open();
     profileFormValidator.toggleSubmitButton();
   });
 
-const cardModal = new PopupWithForm(".modal-add", () => {
-  const newCard = new Section(
-    {
-      items: [{ name: inputPlace.value, link: inputImageURL.value }],
-      renderer: (cardData) => {
-        newCard.addItem(createCard(cardData));
-      },
-    },
-    ".cards__list"
-  );
-  newCard.renderItems();
+const cardModal = new PopupWithForm(".modal-add", (inputs) => {
+  cardSection.addItem(createCard(inputs));
 
   cardModal.close();
 });
