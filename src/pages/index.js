@@ -5,41 +5,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import "./index.css";
-const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__form-input",
-  submitButtonSelector: ".modal__button-save",
-  inactiveButtonClass: "modal__button-disabled",
-  inputErrorClass: "modal__form-input-invalid",
-  errorClass: "modal__input-error_active",
-};
-
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
+import { config, initialCards } from "../utils/constants.js";
 
 const cardList = document.querySelector(".cards__list");
 
@@ -66,12 +32,10 @@ const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
 });
 profileModal.setEventListeners();
 
-const modalProfile = document.querySelector(".modal-profile");
 const modalFormProfile = document.querySelector(".modal__form-profile");
 const inputTitle = document.querySelector('[name = "name"]');
 const inputDesc = document.querySelector('[name = "job"]');
-const profileTitle = document.querySelector(".profile__title");
-const profileDesc = document.querySelector(".profile__description");
+
 const profileFormValidator = new FormValidator(config, modalFormProfile);
 profileFormValidator.enableValidation();
 document
@@ -90,6 +54,7 @@ const cardModal = new PopupWithForm(".modal-add", (inputs) => {
   cardModal.close();
 });
 cardModal.setEventListeners();
+
 const modalFormAdd = document.querySelector(".modal__form-add");
 const addFormValidator = new FormValidator(config, modalFormAdd);
 addFormValidator.enableValidation();
@@ -97,9 +62,6 @@ document.querySelector(".profile__button-add").addEventListener("click", () => {
   cardModal.open();
   addFormValidator.toggleSubmitButton();
 });
-
-const inputPlace = document.querySelector('[name = "place"]');
-const inputImageURL = document.querySelector('[name = "Image_URL"]');
 
 function createCard(cardData) {
   const card = new Card(cardData, "#card", () => {

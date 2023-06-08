@@ -22,7 +22,7 @@ export default class PopupWithForm extends Popup {
     this.#modalInputs.forEach((element) => {
       inputsObject[element.name] = element.value;
     });
-    console.log(inputsObject);
+
     return inputsObject;
   }
 

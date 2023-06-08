@@ -44,11 +44,6 @@ export default class Card {
     this.#cardDeleteButton.addEventListener("click", () => this.#deleteCard());
   }
 
-  // #handleModal() {
-  //   openModal(modalPicture);
-  //   this.#setPictureModal();
-  // }
-
   #toggleActiveLike() {
     this.#cardLikeButton.classList.toggle("card__button-like-active");
   }
