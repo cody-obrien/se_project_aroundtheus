@@ -1,11 +1,3 @@
-import {
-  modalPicture,
-  openModal,
-  //   closeModal,
-  //   closeModalByEscape,
-  //   closeModalByOutsideClick,
-} from "../utils/utils.js";
-
 export default class Card {
   #name;
   #image;
@@ -50,17 +42,6 @@ export default class Card {
       this.#toggleActiveLike()
     );
     this.#cardDeleteButton.addEventListener("click", () => this.#deleteCard());
-  }
-
-  #setPictureModal() {
-    modalPicture
-      .querySelector(".modal__image")
-      .setAttribute("src", this.#cardImage.src);
-    modalPicture
-      .querySelector(".modal__image")
-      .setAttribute("alt", this.#cardImage.alt);
-    modalPicture.querySelector(".modal__caption").textContent =
-      this.#cardImage.alt;
   }
 
   // #handleModal() {
