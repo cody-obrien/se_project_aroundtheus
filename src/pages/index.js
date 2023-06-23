@@ -5,28 +5,48 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import "./index.css";
-import { config, initialCards } from "../utils/constants.js";
+import { config } from "../utils/constants.js";
+import { api } from "../components/Api.js";
 
 const cardList = document.querySelector(".cards__list");
 
 const pictureModal = new PopupWithImage(".modal-picture");
 pictureModal.setEventListeners();
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      cardSection.addItem(createCard(cardData));
-    },
-  },
-  ".cards__list"
-);
-cardSection.renderItems();
+// const cardSection = new Section(
+//   {
+//     items: initialCards,
+//     renderer: (cardData) => {
+//       cardSection.addItem(createCard(cardData));
+//     },
+//   },
+//   ".cards__list"
+// );
+// cardSection.renderItems();
 
 const userInfo = new UserInfo({
   userNameSelector: ".profile__title",
-  userJobSelector: ".profile__description",
+  userAboutSelector: ".profile__description",
 });
+
+Promise.all([api.getUserInfo(), api.getInitialCards()]).then((values) => {
+  const userData = values[0];
+  const initialCards = values[1];
+
+  userInfo.setUserInfo({ name: userData.name, about: userData.about });
+  const cardSection = new Section(
+    {
+      items: initialCards,
+      renderer: (cardData) => {
+        cardSection.addItem(createCard(cardData));
+      },
+    },
+    ".cards__list"
+  );
+  cardSection.renderItems();
+});
+
 const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
+  console.log(inputs);
   userInfo.setUserInfo(inputs);
   profileModal.close();
 });
@@ -34,16 +54,16 @@ profileModal.setEventListeners();
 
 const modalFormProfile = document.querySelector(".modal__form-profile");
 const inputTitle = document.querySelector('[name = "name"]');
-const inputDesc = document.querySelector('[name = "job"]');
+const inputDesc = document.querySelector('[name = "about"]');
 
 const profileFormValidator = new FormValidator(config, modalFormProfile);
 profileFormValidator.enableValidation();
 document
   .querySelector(".profile__button-edit")
   .addEventListener("click", () => {
-    const { userName, userJob } = userInfo.getUserInfo();
+    const { userName, userAbout } = userInfo.getUserInfo();
     inputTitle.value = userName;
-    inputDesc.value = userJob;
+    inputDesc.value = userAbout;
     profileModal.open();
     profileFormValidator.toggleSubmitButton();
   });
