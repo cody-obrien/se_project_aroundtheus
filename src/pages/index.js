@@ -69,7 +69,8 @@ document
   });
 
 const cardModal = new PopupWithForm(".modal-add", (inputs) => {
-  cardSection.addItem(createCard(inputs));
+  api.addNewCard(inputs);
+  cardList.prepend(createCard(inputs));
 
   cardModal.close();
 });

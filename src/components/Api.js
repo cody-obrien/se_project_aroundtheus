@@ -39,6 +39,19 @@ class Api {
       }),
     });
   }
+  addNewCard({ name, link }) {
+    fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: {
+        authorization: this._auth,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        link: link,
+      }),
+    });
+  }
 }
 
 const api = new Api({
