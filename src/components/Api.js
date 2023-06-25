@@ -25,6 +25,20 @@ class Api {
       return res.json();
     });
   }
+
+  updateUserInfo({ name, about }) {
+    fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._auth,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        about: about,
+      }),
+    });
+  }
 }
 
 const api = new Api({

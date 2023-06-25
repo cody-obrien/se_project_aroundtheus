@@ -46,7 +46,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()]).then((values) => {
 });
 
 const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
-  console.log(inputs);
+  api.updateUserInfo(inputs);
   userInfo.setUserInfo(inputs);
   profileModal.close();
 });
