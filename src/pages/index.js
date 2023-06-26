@@ -68,7 +68,6 @@ const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
     .finally(() => {
       profileModal.close();
     });
-  //make this async with .then and .catch using server response
 });
 profileModal.setEventListeners();
 
