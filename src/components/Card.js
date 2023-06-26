@@ -8,12 +8,14 @@ export default class Card {
   #cardDeleteButton;
   #cardText;
   #handleCardClick;
+  #handleDeleteClick;
 
-  constructor(data, cardSelector, handleCardClick) {
+  constructor(data, cardSelector, handleCardClick, handleDeleteClick) {
     this.#image = data.link;
     this.#name = data.name;
     this.#cardSelector = cardSelector;
     this.#handleCardClick = handleCardClick;
+    this.#handleDeleteClick = handleDeleteClick;
   }
   #makeCardElement() {
     this.#cardElement = document
@@ -41,7 +43,9 @@ export default class Card {
     this.#cardLikeButton.addEventListener("click", () =>
       this.#toggleActiveLike()
     );
-    this.#cardDeleteButton.addEventListener("click", () => this.#deleteCard());
+    this.#cardDeleteButton.addEventListener("click", () =>
+      this.#handleDeleteClick()
+    );
   }
 
   #toggleActiveLike() {

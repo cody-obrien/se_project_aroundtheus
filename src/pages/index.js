@@ -7,6 +7,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import "./index.css";
 import { config } from "../utils/constants.js";
 import { api } from "../components/Api.js";
+import Popup from "../components/Popup.js";
 
 const cardList = document.querySelector(".cards__list");
 
@@ -22,6 +23,12 @@ pictureModal.setEventListeners();
 //   ".cards__list"
 // );
 // cardSection.renderItems();
+
+const deleteModal = new PopupWithForm(".modal-delete", () => {
+  // api.deleteCard()
+  deleteModal.close();
+});
+deleteModal.setEventListeners();
 
 const userInfo = new UserInfo({
   userNameSelector: ".profile__title",
@@ -47,6 +54,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()]).then((values) => {
 
 const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
   api.updateUserInfo(inputs);
+  //make this async with .then and .catch using server response
   userInfo.setUserInfo(inputs);
   profileModal.close();
 });
@@ -70,6 +78,7 @@ document
 
 const cardModal = new PopupWithForm(".modal-add", (inputs) => {
   api.addNewCard(inputs);
+  //make this async with .then and .catch using server response
   cardList.prepend(createCard(inputs));
 
   cardModal.close();
@@ -85,8 +94,13 @@ document.querySelector(".profile__button-add").addEventListener("click", () => {
 });
 
 function createCard(cardData) {
-  const card = new Card(cardData, "#card", () => {
-    pictureModal.open(card.getCardData());
-  });
+  const card = new Card(
+    cardData,
+    "#card",
+    () => {
+      pictureModal.open(card.getCardData());
+    },
+    () => deleteModal.open()
+  );
   return card.getCardElement();
 }
