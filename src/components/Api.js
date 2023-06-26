@@ -1,5 +1,5 @@
 // Token: cec7d967-b84d-4a45-bbb1-45eb7a2c7337 Group ID: group-12
-
+// refactor all api calls to check for response okayness
 class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -12,7 +12,10 @@ class Api {
         authorization: this._auth,
       },
     }).then((res) => {
-      return res.json();
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
@@ -22,12 +25,15 @@ class Api {
         authorization: this._auth,
       },
     }).then((res) => {
-      return res.json();
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
   updateUserInfo({ name, about }) {
-    fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: {
         authorization: this._auth,
@@ -37,10 +43,16 @@ class Api {
         name: name,
         about: about,
       }),
+    }).then((res) => {
+      if (res.ok) {
+        // console.log(res.json());
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
   addNewCard({ name, link }) {
-    fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: {
         authorization: this._auth,
@@ -50,6 +62,11 @@ class Api {
         name: name,
         link: link,
       }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 }

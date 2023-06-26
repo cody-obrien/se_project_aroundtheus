@@ -35,28 +35,40 @@ const userInfo = new UserInfo({
   userAboutSelector: ".profile__description",
 });
 
-Promise.all([api.getUserInfo(), api.getInitialCards()]).then((values) => {
-  const userData = values[0];
-  const initialCards = values[1];
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then((values) => {
+    const userData = values[0];
+    const initialCards = values[1];
 
-  userInfo.setUserInfo({ name: userData.name, about: userData.about });
-  const cardSection = new Section(
-    {
-      items: initialCards,
-      renderer: (cardData) => {
-        cardSection.addItem(createCard(cardData));
+    userInfo.setUserInfo({ name: userData.name, about: userData.about });
+    const cardSection = new Section(
+      {
+        items: initialCards,
+        renderer: (cardData) => {
+          cardSection.addItem(createCard(cardData));
+        },
       },
-    },
-    ".cards__list"
-  );
-  cardSection.renderItems();
-});
+      ".cards__list"
+    );
+    cardSection.renderItems();
+  })
+  .catch((err) => {
+    console.error("Error. The request has failed: ", err);
+  });
 
 const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
-  api.updateUserInfo(inputs);
+  api
+    .updateUserInfo(inputs)
+    .then((res) => {
+      userInfo.setUserInfo({ name: res.name, about: res.about });
+    })
+    .catch((err) => {
+      console.error("Error. The request has failed: ", err);
+    })
+    .finally(() => {
+      profileModal.close();
+    });
   //make this async with .then and .catch using server response
-  userInfo.setUserInfo(inputs);
-  profileModal.close();
 });
 profileModal.setEventListeners();
 
