@@ -39,13 +39,15 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then((values) => {
     const userData = values[0];
     const initialCards = values[1];
+    console.log(userData);
+    console.log(initialCards);
 
     userInfo.setUserInfo({ name: userData.name, about: userData.about });
     const cardSection = new Section(
       {
         items: initialCards,
         renderer: (cardData) => {
-          cardSection.addItem(createCard(cardData));
+          cardSection.addItem(createCard(cardData, userData));
         },
       },
       ".cards__list"
@@ -88,11 +90,17 @@ document
   });
 
 const cardModal = new PopupWithForm(".modal-add", (inputs) => {
-  api.addNewCard(inputs);
-  //make this async with .then and .catch using server response
-  cardList.prepend(createCard(inputs));
-
-  cardModal.close();
+  api
+    .addNewCard(inputs)
+    .then((res) => {
+      cardList.prepend(createCard(res));
+    })
+    .catch((err) => {
+      console.error("Error. The request has failed: ", err);
+    })
+    .finally(() => {
+      cardModal.close();
+    });
 });
 cardModal.setEventListeners();
 
@@ -104,7 +112,9 @@ document.querySelector(".profile__button-add").addEventListener("click", () => {
   addFormValidator.toggleSubmitButton();
 });
 
-function createCard(cardData) {
+function createCard(cardData, userData) {
+  console.log(cardData);
+  console.log(userData);
   const card = new Card(
     cardData,
     "#card",
@@ -113,5 +123,11 @@ function createCard(cardData) {
     },
     () => deleteModal.open()
   );
-  return card.getCardElement();
+  const cardElement = card.getCardElement();
+  if (cardData.owner._id !== userData._id) {
+    card.disableDeleteButton();
+  }
+
+  console.log(card.getCardElement().querySelector(".card__button-delete"));
+  return cardElement;
 }

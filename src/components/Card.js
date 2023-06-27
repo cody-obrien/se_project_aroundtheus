@@ -1,6 +1,8 @@
 export default class Card {
   #name;
   #image;
+  #id;
+  #ownerId;
   #cardSelector;
   #cardElement;
   #cardImage;
@@ -13,6 +15,8 @@ export default class Card {
   constructor(data, cardSelector, handleCardClick, handleDeleteClick) {
     this.#image = data.link;
     this.#name = data.name;
+    this.#id = data._id;
+    this.#ownerId = data.owner._id;
     this.#cardSelector = cardSelector;
     this.#handleCardClick = handleCardClick;
     this.#handleDeleteClick = handleDeleteClick;
@@ -61,7 +65,16 @@ export default class Card {
     this.#setEventListeners();
     return this.#cardElement;
   }
+
+  disableDeleteButton() {
+    this.#cardDeleteButton.classList.add("card__button-delete-disabled");
+  }
   getCardData() {
-    return { src: this.#image, alt: this.#name };
+    return {
+      src: this.#image,
+      alt: this.#name,
+      id: this.#id,
+      ownerId: this.#ownerId,
+    };
   }
 }
