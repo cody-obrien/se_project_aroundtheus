@@ -87,13 +87,23 @@ profileModal.setEventListeners();
 
 const avatarModal = new PopupWithForm(".modal-avatar", (inputs) => {
   avatarModal.changeButtonText("Saving...");
-  api.updateProfilePicture(inputs).then((res) => {
-    userInfo.setUserInfo({
-      name: res.name,
-      about: res.about,
-      avatar: res.avatar,
+
+  api
+    .updateProfilePicture(inputs.avatar)
+    .then((res) => {
+      userInfo.setUserInfo({
+        name: res.name,
+        about: res.about,
+        avatar: res.avatar,
+      });
+    })
+    .catch((err) => {
+      console.error("Error. The request has failed: ", err);
+    })
+    .finally(() => {
+      avatarModal.close();
+      avatarModal.changeButtonText("Save");
     });
-  });
 });
 avatarModal.setEventListeners();
 const modalFormAvatar = document.querySelector(".modal__form-avatar");
