@@ -59,6 +59,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   });
 
 const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
+  profileModal.changeButtonText("Saving...");
   api
     .updateUserInfo(inputs)
     .then((res) => {
@@ -69,6 +70,7 @@ const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
     })
     .finally(() => {
       profileModal.close();
+      profileModal.changeButtonText("Save");
     });
 });
 profileModal.setEventListeners();
@@ -90,6 +92,7 @@ document
   });
 
 const cardModal = new PopupWithForm(".modal-add", (inputs) => {
+  cardModal.changeButtonText("Saving...");
   api
     .addNewCard(inputs)
     .then((res) => {
@@ -101,6 +104,7 @@ const cardModal = new PopupWithForm(".modal-add", (inputs) => {
     .finally(() => {
       modalFormAdd.reset();
       cardModal.close();
+      cardModal.changeButtonText("Save");
     });
 });
 cardModal.setEventListeners();
@@ -124,6 +128,7 @@ function createCard(cardData) {
     (cardId) => {
       deleteModal.open();
       deleteModal.setSubmitHandler(() => {
+        deleteModal.changeButtonText("Deleting...");
         api
           .deleteCard(cardId)
           .then(() => {
@@ -133,6 +138,7 @@ function createCard(cardData) {
             console.error("Error. The request has failed: ", err);
           })
           .finally(() => {
+            deleteModal.changeButtonText("Yes");
             deleteModal.close();
           });
       });
@@ -142,7 +148,6 @@ function createCard(cardData) {
         .toggleCardLike(card.getCardData().id, card.getCardData().isLiked)
         .then((res) => {
           {
-            console.log(res);
             card.setIsLiked(res.likes);
             card.toggleActiveLike();
             card.updateLikeAmount(res.likes);

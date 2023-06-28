@@ -6,6 +6,9 @@ export default class Popup {
     this._modalCloseButton = this._modal.querySelector(".modal__button-close");
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
+    if (this._modal.querySelector(".modal__button-save")) {
+      this._modalSaveButton = this._modal.querySelector(".modal__button-save");
+    }
   }
   open() {
     this._modal.classList.add("modal_opened");
@@ -14,6 +17,10 @@ export default class Popup {
   close() {
     this._modal.classList.remove("modal_opened");
     document.removeEventListener("keydown", this.#handleEscClose);
+  }
+
+  changeButtonText(text) {
+    this._modalSaveButton.textContent = text;
   }
   #handleEscClose = (event) => {
     if (event.key === "Escape") {
