@@ -48,7 +48,7 @@ export default class Card {
       this.#toggleActiveLike()
     );
     this.#cardDeleteButton.addEventListener("click", () =>
-      this.#handleDeleteClick()
+      this.#handleDeleteClick(this.#id)
     );
   }
 
@@ -67,6 +67,7 @@ export default class Card {
   }
 
   disableDeleteButton() {
+    // remove delete button completely this.#carddeletebutton.remove
     this.#cardDeleteButton.classList.add("card__button-delete-disabled");
   }
   getCardData() {

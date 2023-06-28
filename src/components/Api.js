@@ -68,6 +68,14 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._auth,
+      },
+    });
+  }
 }
 
 const api = new Api({

@@ -4,6 +4,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import "./index.css";
 import { config } from "../utils/constants.js";
 import { api } from "../components/Api.js";
@@ -24,8 +25,8 @@ pictureModal.setEventListeners();
 // );
 // cardSection.renderItems();
 
-const deleteModal = new PopupWithForm(".modal-delete", () => {
-  // api.deleteCard()
+const deleteModal = new PopupWithConfirm(".modal-delete", () => {
+  // api.deleteCard(id);
   deleteModal.close();
 });
 deleteModal.setEventListeners();
@@ -35,24 +36,27 @@ const userInfo = new UserInfo({
   userAboutSelector: ".profile__description",
 });
 
+// const userData = api.getUserInfo();
+let userId;
+
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then((values) => {
+    userId = values[0]._id;
     const userData = values[0];
     const initialCards = values[1];
-    console.log(userData);
-    console.log(initialCards);
 
     userInfo.setUserInfo({ name: userData.name, about: userData.about });
     const cardSection = new Section(
       {
         items: initialCards,
         renderer: (cardData) => {
-          cardSection.addItem(createCard(cardData, userData));
+          cardSection.addItem(createCard(cardData));
         },
       },
       ".cards__list"
     );
     cardSection.renderItems();
+    return userData;
   })
   .catch((err) => {
     console.error("Error. The request has failed: ", err);
@@ -112,22 +116,28 @@ document.querySelector(".profile__button-add").addEventListener("click", () => {
   addFormValidator.toggleSubmitButton();
 });
 
-function createCard(cardData, userData) {
-  console.log(cardData);
-  console.log(userData);
+function createCard(cardData) {
   const card = new Card(
     cardData,
     "#card",
     () => {
       pictureModal.open(card.getCardData());
     },
-    () => deleteModal.open()
+    (cardId) => {
+      deleteModal.open();
+      deleteModal.setSubmitHandler(() => {
+        api.deleteCard(cardId).then(() => {
+          deleteModal.close();
+        });
+      });
+    }
   );
   const cardElement = card.getCardElement();
-  if (cardData.owner._id !== userData._id) {
+  // potentially change this to be a method in the card class
+  if (cardData.owner._id !== userId) {
+    console.log("nice");
     card.disableDeleteButton();
   }
 
-  console.log(card.getCardElement().querySelector(".card__button-delete"));
   return cardElement;
 }
