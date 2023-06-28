@@ -74,12 +74,12 @@ const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
         about: res.about,
         avatar: res.avatar,
       });
+      modalFormProfile.reset();
+      profileModal.close();
+      profileModal.changeButtonText("Save");
     })
     .catch((err) => {
       console.error("Error. The request has failed: ", err);
-    })
-    .finally(() => {
-      profileModal.close();
       profileModal.changeButtonText("Save");
     });
 });
@@ -96,12 +96,12 @@ const avatarModal = new PopupWithForm(".modal-avatar", (inputs) => {
         about: res.about,
         avatar: res.avatar,
       });
+      modalFormAvatar.reset();
+      avatarModal.close();
+      avatarModal.changeButtonText("Save");
     })
     .catch((err) => {
       console.error("Error. The request has failed: ", err);
-    })
-    .finally(() => {
-      avatarModal.close();
       avatarModal.changeButtonText("Save");
     });
 });
@@ -138,14 +138,12 @@ const cardModal = new PopupWithForm(".modal-add", (inputs) => {
     .addNewCard(inputs)
     .then((res) => {
       cardList.prepend(createCard(res));
+      cardModal.close();
+      cardModal.changeButtonText("Save");
+      modalFormAdd.reset();
     })
     .catch((err) => {
       console.error("Error. The request has failed: ", err);
-    })
-    .finally(() => {
-      modalFormAdd.reset();
-      cardModal.close();
-      cardModal.changeButtonText("Save");
     });
 });
 cardModal.setEventListeners();
