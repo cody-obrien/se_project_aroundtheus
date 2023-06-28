@@ -138,10 +138,18 @@ function createCard(cardData) {
       });
     },
     () => {
-      api.toggleCardLike(card.getCardData().id, card.getCardData().isLiked);
+      api
+        .toggleCardLike(card.getCardData().id, card.getCardData().isLiked)
+        .then((res) => {
+          {
+            console.log(res);
+            card.setIsLiked(res.likes);
+            card.toggleActiveLike();
+            card.updateLikeAmount(res.likes);
+          }
+        });
     }
   );
-  console.log(cardData);
 
   const cardElement = card.getCardElement();
   // potentially change this to be a method in the card class

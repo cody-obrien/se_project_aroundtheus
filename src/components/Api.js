@@ -83,6 +83,11 @@ class Api {
         headers: {
           authorization: this._auth,
         },
+      }).then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
       });
     } else {
       return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
@@ -90,6 +95,11 @@ class Api {
         headers: {
           authorization: this._auth,
         },
+      }).then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
       });
     }
   }
