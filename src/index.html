@@ -19,11 +19,14 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img
-          class="profile__image"
-          src="<%=require('./images/jacques-cousteau.jpg')%>"
-          alt="Cousteau Avatar"
-        />
+        <div class="profile__avatar-container">
+          <img
+            class="profile__image"
+            src="<%=require('./images/jacques-cousteau.jpg')%>"
+            alt="Cousteau Avatar"
+          />
+          <button class="profile__button-edit-avatar" type="button"></button>
+        </div>
         <div class="profile__info">
           <div class="profile__title-wrapper">
             <h1 class="profile__title">Jacques Cousteau</h1>
@@ -97,6 +100,29 @@
             maxlength="400"
           />
           <span class="modal__input-error description-input-error"></span>
+          <button class="modal__button-save" type="submit" name="save-button">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="modal modal-avatar">
+      <div class="modal__container">
+        <button class="modal__button-close"></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form modal__form-avatar">
+          <input
+            required
+            class="modal__form-input"
+            type="url"
+            placeholder="URL"
+            name="avatar"
+            id="avatar-input"
+            minlength="2"
+            maxlength="40"
+          />
+          <span class="modal__input-error avatar-input-error"></span>
+
           <button class="modal__button-save" type="submit" name="save-button">
             Save
           </button>

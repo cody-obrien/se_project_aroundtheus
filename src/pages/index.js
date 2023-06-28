@@ -31,6 +31,7 @@ deleteModal.setEventListeners();
 const userInfo = new UserInfo({
   userNameSelector: ".profile__title",
   userAboutSelector: ".profile__description",
+  userAvatarSelector: ".profile__image",
 });
 
 let userId;
@@ -39,9 +40,14 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then((values) => {
     userId = values[0]._id;
     const userData = values[0];
+
     const initialCards = values[1];
 
-    userInfo.setUserInfo({ name: userData.name, about: userData.about });
+    userInfo.setUserInfo({
+      name: userData.name,
+      about: userData.about,
+      avatar: userData.avatar,
+    });
     const cardSection = new Section(
       {
         items: initialCards,
@@ -63,7 +69,11 @@ const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
   api
     .updateUserInfo(inputs)
     .then((res) => {
-      userInfo.setUserInfo({ name: res.name, about: res.about });
+      userInfo.setUserInfo({
+        name: res.name,
+        about: res.about,
+        avatar: res.avatar,
+      });
     })
     .catch((err) => {
       console.error("Error. The request has failed: ", err);
@@ -74,6 +84,27 @@ const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
     });
 });
 profileModal.setEventListeners();
+
+const avatarModal = new PopupWithForm(".modal-avatar", (inputs) => {
+  avatarModal.changeButtonText("Saving...");
+  api.updateProfilePicture(inputs).then((res) => {
+    userInfo.setUserInfo({
+      name: res.name,
+      about: res.about,
+      avatar: res.avatar,
+    });
+  });
+});
+avatarModal.setEventListeners();
+const modalFormAvatar = document.querySelector(".modal__form-avatar");
+const avatarFormValidator = new FormValidator(config, modalFormAvatar);
+avatarFormValidator.enableValidation();
+document
+  .querySelector(".profile__button-edit-avatar")
+  .addEventListener("click", () => {
+    avatarModal.open();
+    avatarFormValidator.toggleSubmitButton();
+  });
 
 const modalFormProfile = document.querySelector(".modal__form-profile");
 const inputTitle = document.querySelector('[name = "name"]');

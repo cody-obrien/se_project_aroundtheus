@@ -2,17 +2,17 @@ import Popup from "./Popup.js";
 export default class PopupWithForm extends Popup {
   #handleFormSubmit;
   #modalForm;
-
+  #modalSaveButton;
   #modalInputs;
   constructor(popupSelector, handleFormSubmit) {
     super(popupSelector);
 
     this.#handleFormSubmit = handleFormSubmit;
     this.#modalForm = this._modal.querySelector(".modal__form");
-    if (this.#modalForm) {
-      this.#modalInputs =
-        this.#modalForm.querySelectorAll(".modal__form-input");
-    }
+    this.#modalSaveButton = this.#modalForm.querySelector(
+      ".modal__button-save"
+    );
+    this.#modalInputs = this.#modalForm.querySelectorAll(".modal__form-input");
   }
 
   #getInputValues() {
@@ -22,6 +22,10 @@ export default class PopupWithForm extends Popup {
     });
 
     return inputsObject;
+  }
+
+  changeButtonText(text) {
+    this.#modalSaveButton.textContent = text;
   }
 
   setEventListeners() {
