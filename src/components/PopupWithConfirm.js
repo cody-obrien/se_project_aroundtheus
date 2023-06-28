@@ -17,9 +17,4 @@ export default class PopupWithConfirm extends Popup {
       this._submitHandler();
     });
   }
-
-  close() {
-    this._modal.classList.remove("modal_opened");
-    // document.removeEventListener("keydown", this.#handleEscClose);
-  }
 }

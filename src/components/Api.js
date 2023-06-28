@@ -76,6 +76,23 @@ class Api {
       },
     });
   }
+  toggleCardLike(cardId, isLiked) {
+    if (!isLiked) {
+      return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+        method: "PUT",
+        headers: {
+          authorization: this._auth,
+        },
+      });
+    } else {
+      return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+        method: "DELETE",
+        headers: {
+          authorization: this._auth,
+        },
+      });
+    }
+  }
 }
 
 const api = new Api({

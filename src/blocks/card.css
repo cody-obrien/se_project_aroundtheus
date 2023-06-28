@@ -51,6 +51,11 @@
 .card__button-delete:hover {
   opacity: 0.6;
 }
+.card__like-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .card__button-like {
   background: url("../images/like_inactive.svg") no-repeat center;
   background-size: contain;

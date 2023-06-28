@@ -25,10 +25,7 @@ pictureModal.setEventListeners();
 // );
 // cardSection.renderItems();
 
-const deleteModal = new PopupWithConfirm(".modal-delete", () => {
-  // api.deleteCard(id);
-  deleteModal.close();
-});
+const deleteModal = new PopupWithConfirm(".modal-delete");
 deleteModal.setEventListeners();
 
 const userInfo = new UserInfo({
@@ -36,7 +33,6 @@ const userInfo = new UserInfo({
   userAboutSelector: ".profile__description",
 });
 
-// const userData = api.getUserInfo();
 let userId;
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -103,6 +99,7 @@ const cardModal = new PopupWithForm(".modal-add", (inputs) => {
       console.error("Error. The request has failed: ", err);
     })
     .finally(() => {
+      modalFormAdd.reset();
       cardModal.close();
     });
 });
@@ -119,6 +116,7 @@ document.querySelector(".profile__button-add").addEventListener("click", () => {
 function createCard(cardData) {
   const card = new Card(
     cardData,
+    userId,
     "#card",
     () => {
       pictureModal.open(card.getCardData());
@@ -126,16 +124,28 @@ function createCard(cardData) {
     (cardId) => {
       deleteModal.open();
       deleteModal.setSubmitHandler(() => {
-        api.deleteCard(cardId).then(() => {
-          deleteModal.close();
-        });
+        api
+          .deleteCard(cardId)
+          .then(() => {
+            card.deleteCard();
+          })
+          .catch((err) => {
+            console.error("Error. The request has failed: ", err);
+          })
+          .finally(() => {
+            deleteModal.close();
+          });
       });
+    },
+    () => {
+      api.toggleCardLike(card.getCardData().id, card.getCardData().isLiked);
     }
   );
+  console.log(cardData);
+
   const cardElement = card.getCardElement();
   // potentially change this to be a method in the card class
   if (cardData.owner._id !== userId) {
-    console.log("nice");
     card.disableDeleteButton();
   }
 
