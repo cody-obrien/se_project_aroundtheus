@@ -37,6 +37,9 @@ export default class Card {
     this.#handleLikeClick = handleLikeClick;
     this.#likesArray = data.likes;
     this.#numLikes = this.#likesArray.length;
+    this.#isLiked = this.#likesArray.some((element) => {
+      element._id === this.#myId;
+    });
   }
   #makeCardElement() {
     this.#cardElement = document
@@ -68,11 +71,9 @@ export default class Card {
       this.#handleCardClick();
     });
 
-    this.#cardLikeButton.addEventListener(
-      "click",
-      () => this.toggleActiveLike(),
-      this.#handleLikeClick()
-    );
+    this.#cardLikeButton.addEventListener("click", () => {
+      this.toggleActiveLike(), this.#handleLikeClick();
+    });
     this.#cardDeleteButton.addEventListener("click", () =>
       this.#handleDeleteClick(this.#id)
     );
@@ -80,9 +81,9 @@ export default class Card {
 
   setIsLiked(likesArray) {
     this.#likesArray = likesArray;
-    this.#isLiked = this.#likesArray.some((element) => {
-      element._id === this.#myId;
-    });
+    this.#isLiked = this.#likesArray.some(
+      (element) => element._id === this.#myId
+    );
   }
   updateLikeAmount(likesArray) {
     this.#numLikes = likesArray.length;
