@@ -17,17 +17,13 @@ class Api {
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    }).then((res) => {
-      return this._checkResponse(res);
-    });
+    }).then(this._checkResponse);
   }
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    }).then((res) => {
-      return this._checkResponse(res);
-    });
+    }).then(this._checkResponse);
   }
 
   updateUserInfo({ name, about }) {
@@ -38,9 +34,7 @@ class Api {
         name: name,
         about: about,
       }),
-    }).then((res) => {
-      return this._checkResponse(res);
-    });
+    }).then(this._checkResponse);
   }
   addNewCard({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {
@@ -50,33 +44,25 @@ class Api {
         name: name,
         link: link,
       }),
-    }).then((res) => {
-      return this._checkResponse(res);
-    });
+    }).then(this._checkResponse);
   }
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => {
-      return this._checkResponse(res);
-    });
+    }).then(this._checkResponse);
   }
   toggleCardLike(cardId, isLiked) {
     if (!isLiked) {
       return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
         method: "PUT",
         headers: this._headers,
-      }).then((res) => {
-        return this._checkResponse(res);
-      });
+      }).then(this._checkResponse);
     } else {
       return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
         method: "DELETE",
         headers: this._headers,
-      }).then((res) => {
-        return this._checkResponse(res);
-      });
+      }).then(this._checkResponse);
     }
   }
   updateProfilePicture(link) {
@@ -86,9 +72,7 @@ class Api {
       body: JSON.stringify({
         avatar: link,
       }),
-    }).then((res) => {
-      return this._checkResponse(res);
-    });
+    }).then(this._checkResponse);
   }
 }
 

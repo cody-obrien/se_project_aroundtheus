@@ -58,7 +58,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       ".cards__list"
     );
     cardSection.renderItems();
-    return userData;
+    // return userData;
   })
   .catch((err) => {
     console.error("Error. The request has failed: ", err);
@@ -87,6 +87,7 @@ profileModal.setEventListeners();
 
 const avatarModal = new PopupWithForm(".modal-avatar", (inputs) => {
   avatarModal.changeButtonText("Saving...");
+  console.log(inputs.avatar);
 
   api
     .updateProfilePicture(inputs.avatar)
