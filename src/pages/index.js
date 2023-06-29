@@ -10,7 +10,7 @@ import { config } from "../utils/constants.js";
 import { api } from "../components/Api.js";
 import Popup from "../components/Popup.js";
 
-const cardList = document.querySelector(".cards__list");
+// const cardList = document.querySelector(".cards__list");
 
 const pictureModal = new PopupWithImage(".modal-picture");
 pictureModal.setEventListeners();
@@ -35,6 +35,7 @@ const userInfo = new UserInfo({
 });
 
 let userId;
+let cardSection;
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then((values) => {
@@ -48,7 +49,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       about: userData.about,
       avatar: userData.avatar,
     });
-    const cardSection = new Section(
+    cardSection = new Section(
       {
         items: initialCards,
         renderer: (cardData) => {
@@ -65,7 +66,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   });
 
 const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
-  profileModal.changeButtonText("Saving...");
+  profileModal.renderLoading(true);
   api
     .updateUserInfo(inputs)
     .then((res) => {
@@ -74,19 +75,20 @@ const profileModal = new PopupWithForm(".modal-profile", (inputs) => {
         about: res.about,
         avatar: res.avatar,
       });
-      modalFormProfile.reset();
+
       profileModal.close();
-      profileModal.changeButtonText("Save");
     })
     .catch((err) => {
       console.error("Error. The request has failed: ", err);
-      profileModal.changeButtonText("Save");
+    })
+    .finally(() => {
+      profileModal.renderLoading(false);
     });
 });
 profileModal.setEventListeners();
 
 const avatarModal = new PopupWithForm(".modal-avatar", (inputs) => {
-  avatarModal.changeButtonText("Saving...");
+  avatarModal.renderLoading(true);
   console.log(inputs.avatar);
 
   api
@@ -97,13 +99,14 @@ const avatarModal = new PopupWithForm(".modal-avatar", (inputs) => {
         about: res.about,
         avatar: res.avatar,
       });
-      modalFormAvatar.reset();
+
       avatarModal.close();
-      avatarModal.changeButtonText("Save");
     })
     .catch((err) => {
       console.error("Error. The request has failed: ", err);
-      avatarModal.changeButtonText("Save");
+    })
+    .finally(() => {
+      avatarModal.renderLoading(false);
     });
 });
 avatarModal.setEventListeners();
@@ -134,17 +137,18 @@ document
   });
 
 const cardModal = new PopupWithForm(".modal-add", (inputs) => {
-  cardModal.changeButtonText("Saving...");
+  cardModal.renderLoading(true);
   api
     .addNewCard(inputs)
     .then((res) => {
-      cardList.prepend(createCard(res));
+      cardSection.addItem(createCard(res));
       cardModal.close();
-      cardModal.changeButtonText("Save");
-      modalFormAdd.reset();
     })
     .catch((err) => {
       console.error("Error. The request has failed: ", err);
+    })
+    .finally(() => {
+      cardModal.renderLoading(false);
     });
 });
 cardModal.setEventListeners();
@@ -168,18 +172,18 @@ function createCard(cardData) {
     (cardId) => {
       deleteModal.open();
       deleteModal.setSubmitHandler(() => {
-        deleteModal.changeButtonText("Deleting...");
+        deleteModal.renderLoading(true);
         api
           .deleteCard(cardId)
           .then(() => {
             card.deleteCard();
+            deleteModal.close();
           })
           .catch((err) => {
             console.error("Error. The request has failed: ", err);
           })
           .finally(() => {
-            deleteModal.changeButtonText("Yes");
-            deleteModal.close();
+            deleteModal.renderLoading(false);
           });
       });
     },
@@ -192,6 +196,9 @@ function createCard(cardData) {
             card.toggleActiveLike();
             card.updateLikeAmount(res.likes);
           }
+        })
+        .catch((err) => {
+          console.error("Error. The request has failed: ", err);
         });
     }
   );
