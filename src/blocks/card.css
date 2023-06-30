@@ -44,8 +44,17 @@
   right: 16px;
   transition: opacity 0.2s linear;
 }
+
+.card__button-delete-disabled {
+  display: none;
+}
 .card__button-delete:hover {
   opacity: 0.6;
+}
+.card__like-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .card__button-like {
   background: url("../images/like_inactive.svg") no-repeat center;
